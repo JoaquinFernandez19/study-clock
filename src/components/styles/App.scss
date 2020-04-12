@@ -1,0 +1,79 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+::placeholder {
+	/* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: black;
+	opacity: 1; /* Firefox */
+}
+body {
+	background-color: #f5eded;
+	font-size: 16px;
+}
+
+.main-block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+.clock-form-start-btn {
+	background-color: #d72323;
+	color: #000000;
+	opacity: 0.9;
+	font-size: 4em;
+	padding: 1em;
+	border-radius: 10px;
+	font-family: 'Acme', sans-serif;
+	cursor: pointer;
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.timer {
+	display: none;
+	font-size: 10em;
+
+	font-family: 'Acme', sans-serif;
+	grid-template-columns: 15% 15% 1fr;
+	grid-template-rows: 1fr 30%;
+	p {
+		grid-column: 1/4;
+		margin: auto;
+		text-align: center;
+		justify-self: center;
+	}
+}
+
+.pause.icon.mini {
+	cursor: pointer;
+	&:hover {
+		color: #d72323;
+	}
+	grid-row: 2/3;
+	grid-column: 2/3;
+}
+.play.icon.mini {
+	cursor: pointer;
+	&:hover {
+		color: #d72323;
+	}
+	grid-row: 2/3;
+	grid-column: 1/2;
+}
+.close.icon.mini {
+	cursor: pointer;
+	&:hover {
+		color: #d72323;
+	}
+	grid-row: 2/3;
+	grid-column: 3/4;
+}
