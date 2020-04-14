@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/study-clock/static/css/main.d8420ca0.chunk.css",
-    "main.js": "/study-clock/static/js/main.a8f8da8c.chunk.js",
-    "main.js.map": "/study-clock/static/js/main.a8f8da8c.chunk.js.map",
+    "main.js": "/study-clock/static/js/main.8bec5a0c.chunk.js",
+    "main.js.map": "/study-clock/static/js/main.8bec5a0c.chunk.js.map",
     "runtime-main.js": "/study-clock/static/js/runtime-main.d0df2750.js",
     "runtime-main.js.map": "/study-clock/static/js/runtime-main.d0df2750.js.map",
     "static/js/2.47b07651.chunk.js": "/study-clock/static/js/2.47b07651.chunk.js",
     "static/js/2.47b07651.chunk.js.map": "/study-clock/static/js/2.47b07651.chunk.js.map",
     "index.html": "/study-clock/index.html",
-    "precache-manifest.67d7c0894e4ec690d95166f295155408.js": "/study-clock/precache-manifest.67d7c0894e4ec690d95166f295155408.js",
+    "precache-manifest.43387fef51e811b7d2f2d2b051068caa.js": "/study-clock/precache-manifest.43387fef51e811b7d2f2d2b051068caa.js",
     "service-worker.js": "/study-clock/service-worker.js",
     "static/css/main.d8420ca0.chunk.css.map": "/study-clock/static/css/main.d8420ca0.chunk.css.map",
     "static/js/2.47b07651.chunk.js.LICENSE.txt": "/study-clock/static/js/2.47b07651.chunk.js.LICENSE.txt",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.d0df2750.js",
     "static/js/2.47b07651.chunk.js",
     "static/css/main.d8420ca0.chunk.css",
-    "static/js/main.a8f8da8c.chunk.js"
+    "static/js/main.8bec5a0c.chunk.js"
   ]
 }
