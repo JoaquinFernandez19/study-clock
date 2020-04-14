@@ -5,8 +5,8 @@ import popAudio from './sounds/pop.mp3';
 const pop = new UIfx(popAudio, {
 	volume: 0.5,
 });
-export class AlertMe extends Component {
-	state = { activeRest: null };
+export class RestControll extends Component {
+	state = { activeRest: 'no-rest' };
 
 	handleRestSelection = (e) => {
 		this.setState({ activeRest: e.target.classList[0] });
@@ -17,6 +17,7 @@ export class AlertMe extends Component {
 	render() {
 		return (
 			<div className="alert-me-styles">
+				<h1>Rest every...</h1>
 				<div
 					className={`15-min rest ${
 						this.state.activeRest === '15-min' ? 'active-rest' : ''
@@ -33,7 +34,18 @@ export class AlertMe extends Component {
 					30
 					<i className="clock outline icon"></i>
 				</div>
-				<div className="no-rest rest " onClick={this.handleRestSelection}>
+				<div
+					className={`1-hr rest ${
+						this.state.activeRest === '1-hr' ? 'active-rest' : ''
+					}`}
+					onClick={this.handleRestSelection}>
+					1<i className="clock outline icon"></i>
+				</div>
+				<div
+					className={`no-rest rest ${
+						this.state.activeRest === 'no-rest' ? 'active-rest' : ''
+					} `}
+					onClick={this.handleRestSelection}>
 					no rest
 				</div>
 			</div>
@@ -41,4 +53,4 @@ export class AlertMe extends Component {
 	}
 }
 
-export default AlertMe;
+export default RestControll;

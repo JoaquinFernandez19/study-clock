@@ -1,5 +1,7 @@
 import React from 'react';
-import AlertMe from './AlertMe';
+import RestControll from './RestControll';
+import Goal from './Goal';
+import GoalText from './GoalText';
 //sounds
 import UIfx from 'uifx';
 import popAudio from './sounds/pop.mp3';
@@ -25,24 +27,38 @@ class Clock extends React.Component {
 		super(props);
 		this.state = {
 			hours: 0,
-			minutes: 0,
-			seconds: 0,
+			minutes: 14,
+			seconds: 50,
 			counting: false,
-			rest: null,
+			rest: 'no-rest',
+			selectedGoal: null,
 		};
 	}
-
+	setGoal = (e, goal) => {
+		if (e.target.classList.contains('goal-btn')) {
+			e.target.parentNode.classList.add('animated', 'fadeOut');
+		}
+		e.target.parentNode.addEventListener('animationend', (e) => {
+			e.target.style.display = 'none';
+			const timer = document.querySelector('.timer');
+			const extraBtns = document.querySelector('.alert-me-styles');
+			const goalTitle = document.querySelector('.goal-title');
+			goalTitle.style.display = 'flex';
+			extraBtns.style.display = 'flex';
+			timer.style.display = 'grid';
+			this.startCount();
+			const goalDOM = document.querySelector('.goal');
+			goalDOM.style.display = 'none';
+			this.setState({ selectedGoal: goal });
+		});
+	};
 	hideBtn = (e) => {
 		zen.play();
 		e.target.classList.add('animated', 'fadeOut');
 		e.target.addEventListener('animationend', (e) => {
 			e.target.style.display = 'none';
-			const timer = document.querySelector('.timer');
-			const extraBtns = document.querySelector('.alert-me-styles');
-
-			extraBtns.style.display = 'flex';
-			timer.style.display = 'grid';
-			this.startCount();
+			const goal = document.querySelector('.goal');
+			goal.style.display = 'grid';
 		});
 	};
 
@@ -91,9 +107,10 @@ class Clock extends React.Component {
 				<div className="clock-form-start-btn" onClick={this.hideBtn}>
 					Start studying
 				</div>
-				<AlertMe onRest={this.handleRest} />
+				<Goal onSubmit={this.setGoal} />
+				<RestControll onRest={this.handleRest} />
 				<div className="timer">
-					<p>
+					<p className="real-clock">
 						{hours.length >= 2 ? hours : `0${hours}`}:
 						{minutes.length >= 2 ? minutes : `0${minutes}`}:
 						{seconds.length >= 2 ? seconds : `0${seconds}`}
@@ -106,6 +123,7 @@ class Clock extends React.Component {
 					<i className="play icon mini" onClick={this.startCount}></i>
 					<i className="close icon mini" onClick={this.reset}></i>
 				</div>
+				<GoalText goal={this.state.selectedGoal} />
 			</div>
 		);
 	}
@@ -124,7 +142,7 @@ class Clock extends React.Component {
 				minutes: 0,
 			});
 		}
-		if (this.state.rest !== 'no-rest') {
+		if (this.state.rest !== 'no-rest' && this.state.counting) {
 			if (
 				this.state.rest === '15-min' &&
 				(this.state.minutes === 15 ||
@@ -132,7 +150,8 @@ class Clock extends React.Component {
 					this.state.minutes === 45) &&
 				this.state.seconds === 0
 			) {
-				alert('take a rest ');
+				this.setState({ seconds: 1 });
+				this.stopTimer();
 				zen.play();
 			}
 			if (
@@ -140,7 +159,18 @@ class Clock extends React.Component {
 				(this.state.minutes === 30 || this.state.hours > 0) &&
 				this.state.seconds === 0
 			) {
-				alert('take a rest 30min');
+				this.setState({ seconds: 1 });
+				this.stopTimer();
+				zen.play();
+			}
+			if (
+				this.state.rest === '1-hr' &&
+				this.state.minutes === 0 &&
+				this.state.hours > 0 &&
+				this.state.seconds === 0
+			) {
+				this.setState({ seconds: 1 });
+				this.stopTimer();
 				zen.play();
 			}
 		}
