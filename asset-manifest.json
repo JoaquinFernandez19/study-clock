@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/study-clock/static/css/main.42884642.chunk.css",
+    "main.js": "/study-clock/static/js/main.28c2040e.chunk.js",
+    "main.js.map": "/study-clock/static/js/main.28c2040e.chunk.js.map",
+    "runtime-main.js": "/study-clock/static/js/runtime-main.d0df2750.js",
+    "runtime-main.js.map": "/study-clock/static/js/runtime-main.d0df2750.js.map",
+    "static/js/2.9829876c.chunk.js": "/study-clock/static/js/2.9829876c.chunk.js",
+    "static/js/2.9829876c.chunk.js.map": "/study-clock/static/js/2.9829876c.chunk.js.map",
+    "index.html": "/study-clock/index.html",
+    "precache-manifest.752f467d470a70d6f20c7cb26a2d1c50.js": "/study-clock/precache-manifest.752f467d470a70d6f20c7cb26a2d1c50.js",
+    "service-worker.js": "/study-clock/service-worker.js",
+    "static/css/main.42884642.chunk.css.map": "/study-clock/static/css/main.42884642.chunk.css.map",
+    "static/js/2.9829876c.chunk.js.LICENSE.txt": "/study-clock/static/js/2.9829876c.chunk.js.LICENSE.txt",
+    "static/media/pop.mp3": "/study-clock/static/media/pop.ddf92754.mp3",
+    "static/media/pop2.mp3": "/study-clock/static/media/pop2.a992299e.mp3",
+    "static/media/reset.mp3": "/study-clock/static/media/reset.d751ccbc.mp3",
+    "static/media/zen.mp3": "/study-clock/static/media/zen.887c9a31.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d0df2750.js",
+    "static/js/2.9829876c.chunk.js",
+    "static/css/main.42884642.chunk.css",
+    "static/js/main.28c2040e.chunk.js"
+  ]
+}
