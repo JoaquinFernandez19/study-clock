@@ -8,7 +8,10 @@ import popAudio from './sounds/pop.mp3';
 import popAudio2 from './sounds/pop2.mp3';
 import resetAudio from './sounds/reset.mp3';
 import zenAudio from './sounds/zen.mp3';
-
+import zenRest from './sounds/zenRest.mp3';
+const zen2 = new UIfx(zenRest, {
+	volume: 1,
+});
 const pop = new UIfx(popAudio, {
 	volume: 0.7,
 });
@@ -32,10 +35,11 @@ class Clock extends React.Component {
 			counting: false,
 			rest: 'no-rest',
 			selectedGoal: null,
+			resting: false,
 		};
 	}
 	setGoal = (e, goal) => {
-		if (e.target.classList.contains('goal-btn')) {
+		if (e.target.classList.contains('checker-goal')) {
 			e.target.parentNode.classList.add('animated', 'fadeOut');
 		}
 		e.target.parentNode.addEventListener('animationend', (e) => {
@@ -58,12 +62,11 @@ class Clock extends React.Component {
 		e.target.addEventListener('animationend', (e) => {
 			e.target.style.display = 'none';
 			const goal = document.querySelector('.goal');
-			goal.style.display = 'grid';
+			goal.style.display = 'flex';
 		});
 	};
-
 	startCount = () => {
-		this.setState({ reseted: false });
+		this.setState({ resting: false });
 		if (!this.state.counting) {
 			pop.play();
 			this.setState({ counting: true });
@@ -74,11 +77,11 @@ class Clock extends React.Component {
 			}, 1000);
 		}
 	};
-	stopTimer = () => {
+	stopTimer = (sound) => {
 		if (this.state.counting) {
-			popPause.play();
-			clearInterval(this.myInterval);
 			this.setState({ counting: false });
+			sound ? popPause.play() : zen2.play();
+			clearInterval(this.myInterval);
 		}
 	};
 	reset = () => {
@@ -89,12 +92,16 @@ class Clock extends React.Component {
 			minutes: 0,
 			seconds: 0,
 			counting: false,
+			resting: false,
 		});
 	};
 
 	//rest timer
 	handleRest = (time) => {
 		this.setState({ rest: time });
+	};
+	startRest = () => {
+		this.setState({ seconds: 1, resting: true });
 	};
 
 	render() {
@@ -108,7 +115,7 @@ class Clock extends React.Component {
 					Start studying
 				</div>
 				<Goal onSubmit={this.setGoal} />
-				<RestControll onRest={this.handleRest} />
+				<RestControll onRest={this.handleRest} resting={this.state.resting} />
 				<div className="timer">
 					<p className="real-clock">
 						{hours.length >= 2 ? hours : `0${hours}`}:
@@ -128,6 +135,7 @@ class Clock extends React.Component {
 		);
 	}
 	componentDidUpdate() {
+		//Actual clock
 		let minutes = this.state.minutes;
 		let seconds = this.state.seconds;
 		if (seconds === 60) {
@@ -142,6 +150,7 @@ class Clock extends React.Component {
 				minutes: 0,
 			});
 		}
+		//Rest checker
 		if (this.state.rest !== 'no-rest' && this.state.counting) {
 			if (
 				this.state.rest === '15-min' &&
@@ -150,18 +159,16 @@ class Clock extends React.Component {
 					this.state.minutes === 45) &&
 				this.state.seconds === 0
 			) {
-				this.setState({ seconds: 1 });
-				this.stopTimer();
-				zen.play();
+				this.startRest();
+				this.stopTimer(false);
 			}
 			if (
 				this.state.rest === '30-min' &&
 				(this.state.minutes === 30 || this.state.hours > 0) &&
 				this.state.seconds === 0
 			) {
-				this.setState({ seconds: 1 });
-				this.stopTimer();
-				zen.play();
+				this.startRest();
+				this.stopTimer(false);
 			}
 			if (
 				this.state.rest === '1-hr' &&
@@ -169,10 +176,14 @@ class Clock extends React.Component {
 				this.state.hours > 0 &&
 				this.state.seconds === 0
 			) {
-				this.setState({ seconds: 1 });
-				this.stopTimer();
-				zen.play();
+				this.startRest();
+				this.stopTimer(false);
 			}
+		}
+		//Goal checker
+		if (this.state.hours == this.state.selectedGoal) {
+			alert('YOU FINISH!!! GO PLAY SOME VIDEO GAMES');
+			this.reset();
 		}
 	}
 }

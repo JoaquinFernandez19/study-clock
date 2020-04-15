@@ -1,41 +1,43 @@
 import React, { Component } from 'react';
+import UIfx from 'uifx';
+import nextAudio from './sounds/next.mp3';
+const next = new UIfx(nextAudio, {
+	volume: 0.7,
+});
 
 export class Goal extends Component {
-	state = { goal: null };
+	state = { goal: 1 };
 
 	handleGoal = (e) => {
-		this.setState({ goal: e.target.value });
-		this.props.onSubmit(e, e.target.value);
+		this.props.onSubmit(e, this.state.goal);
 	};
-
+	increment = () => {
+		if (this.state.goal < 12) {
+			next.play();
+			this.setState({ goal: this.state.goal + 1 });
+		}
+	};
+	decrement = () => {
+		if (this.state.goal > 1) {
+			next.play();
+			this.setState({ goal: this.state.goal - 1 });
+		}
+	};
 	render() {
 		return (
 			<div className="goal animated fadeIn ">
 				<h1 className="center aligned">What is you goal for today?</h1>
-				<button
-					value="2hr"
-					className="btn-1 goal-btn"
-					onClick={this.handleGoal}>
-					2 Hours
-				</button>
-				<button
-					value="3hr"
-					className="btn-2 goal-btn"
-					onClick={this.handleGoal}>
-					3 Hours
-				</button>
-				<button
-					value="4hr"
-					className="btn-3 goal-btn"
-					onClick={this.handleGoal}>
-					4 Hours
-				</button>
-				<button
-					value="5hr"
-					className="btn-4 goal-btn"
-					onClick={this.handleGoal}>
-					5 Hours
-				</button>
+				<div className="hr-carousel">
+					<i className="angle left icon huge" onClick={this.decrement}></i>
+					<div className="number-box" value={this.state.goal}>
+						{this.state.goal}
+						<span style={{ fontSize: '16px' }}>hrs</span>
+					</div>
+					<i className="angle right icon huge" onClick={this.increment}></i>
+				</div>
+				<p className="checker-goal " onClick={this.handleGoal}>
+					Start
+				</p>
 			</div>
 		);
 	}
