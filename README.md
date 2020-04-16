@@ -1,3 +1,5 @@
-# Clock project with react for studying time managment
+# Clock for studying time managment
 
-Work in progress
+## React.js !
+
+Mobile, responsive and whatever you want

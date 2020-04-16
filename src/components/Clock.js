@@ -30,8 +30,8 @@ class Clock extends React.Component {
 		super(props);
 		this.state = {
 			hours: 0,
-			minutes: 0,
-			seconds: 0,
+			minutes: 59,
+			seconds: 59,
 			counting: false,
 			rest: 'no-rest',
 			selectedGoal: null,
@@ -84,8 +84,8 @@ class Clock extends React.Component {
 			clearInterval(this.myInterval);
 		}
 	};
-	reset = () => {
-		reset.play();
+	reset = (sound) => {
+		sound ? reset.play() : zen2.play();
 		clearInterval(this.myInterval);
 		this.setState({
 			hours: 0,
@@ -104,6 +104,17 @@ class Clock extends React.Component {
 		this.setState({ seconds: 1, resting: true });
 	};
 
+	//full reset
+	backToStart = () => {
+		const goalAlert = document.querySelector('.goal-alert-text');
+
+		goalAlert.classList.add('animated', 'fadeOut');
+
+		goalAlert.addEventListener('animationend', () => {
+			window.location.reload();
+		});
+	};
+
 	render() {
 		let hours = `${this.state.hours}`;
 		let minutes = `${this.state.minutes}`;
@@ -116,6 +127,15 @@ class Clock extends React.Component {
 				</div>
 				<Goal onSubmit={this.setGoal} />
 				<RestControll onRest={this.handleRest} resting={this.state.resting} />
+				<div className="goal-alert">
+					<div className="goal-alert-text">
+						<p>Nice job.</p>
+
+						<button className="ui secondary button" onClick={this.backToStart}>
+							Again?
+						</button>
+					</div>
+				</div>
 				<div className="timer">
 					<p className="real-clock">
 						{hours.length >= 2 ? hours : `0${hours}`}:
@@ -182,8 +202,9 @@ class Clock extends React.Component {
 		}
 		//Goal checker
 		if (this.state.hours == this.state.selectedGoal) {
-			alert('YOU FINISH!!! GO PLAY SOME VIDEO GAMES');
-			this.reset();
+			const goalReachedAlert = document.querySelector('.goal-alert');
+			goalReachedAlert.style.display = 'flex';
+			this.stopTimer(false);
 		}
 	}
 }
