@@ -30,8 +30,8 @@ class Clock extends React.Component {
 		super(props);
 		this.state = {
 			hours: 0,
-			minutes: 59,
-			seconds: 59,
+			minutes: 0,
+			seconds: 0,
 			counting: false,
 			rest: 'no-rest',
 			selectedGoal: null,
