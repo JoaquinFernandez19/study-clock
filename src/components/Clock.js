@@ -184,9 +184,11 @@ class Clock extends React.Component {
 			}
 			if (
 				this.state.rest === '30-min' &&
-				(this.state.minutes === 30 || this.state.hours > 0) &&
+				(this.state.minutes === 30 ||
+					(this.state.hours > 0 && this.state.minutes === 0)) &&
 				this.state.seconds === 0
 			) {
+				console.log(this.state);
 				this.startRest();
 				this.stopTimer(false);
 			}
