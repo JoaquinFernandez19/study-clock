@@ -5,6 +5,7 @@ import popAudio from './sounds/pop.mp3';
 const pop = new UIfx(popAudio, {
 	volume: 0.5,
 });
+
 export class RestControll extends Component {
 	state = {
 		activeRest: 'no-rest',
@@ -21,6 +22,7 @@ export class RestControll extends Component {
 			if (this.props.resting) {
 				this.interval = setInterval(() => {
 					this.setState({ seconds: this.state.seconds + 1 });
+					document.title = 'Resting!';
 				}, 1000);
 
 				restClock.style.display = 'flex';

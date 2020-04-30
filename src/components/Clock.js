@@ -74,11 +74,14 @@ class Clock extends React.Component {
 				this.setState((prevState) => ({
 					seconds: prevState.seconds + 1,
 				}));
+
+				document.title = `You been studying for ${this.state.hours} hours`;
 			}, 1000);
 		}
 	};
 	stopTimer = (sound) => {
 		if (this.state.counting) {
+			document.title = 'Paused';
 			this.setState({ counting: false });
 			sound ? popPause.play() : zen2.play();
 			clearInterval(this.myInterval);
@@ -204,6 +207,7 @@ class Clock extends React.Component {
 		}
 		//Goal checker
 		if (this.state.hours == this.state.selectedGoal) {
+			document.title = 'Finished studying!';
 			const goalReachedAlert = document.querySelector('.goal-alert');
 			goalReachedAlert.style.display = 'flex';
 			this.stopTimer(false);
